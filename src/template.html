@@ -1,0 +1,111 @@
+<div id="app">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+  <section id="s1_header">
+    <aside class="container">
+      <div v-if="weather.base !== 'night'"><img class="icon" src="./assets/sunred.png" alt="Icon"></div>
+      <div v-else><img class="icon" src="./assets/sunblue.png" alt="Icon"></div>
+      <h1 id="okw" class="title">OK Weather</h1>
+    </aside>
+  </section>
+  <main>
+    <div class="search-box input-group mb-3">
+      <input id="searchInput" type="text" class="search-bar" placeholder="Type to search" v-model="call"
+        @keyup.enter="getWeather">
+      <div class="input-group-append">
+        <button id="clear-button" class="btn" role="button"
+          onclick="document.getElementById('searchInput').value = ''">Clear</button>
+      </div>
+    </div>
+
+    <div class="container" v-if="typeof weather.main != 'undefined'">
+      <div class="location-box">
+        <div class="location">{{weather.name}}, {{weather.sys.country}}</div>
+        <div class="date">{{createDate()}}</div>
+      </div>
+      <div class="weather-box">
+        <div class="temp">{{Math.round(weather.main.temp)}}&deg;C</div>
+        <div class="status-box">
+          <img id="weather-img" :src="'http://openweathermap.org/img/wn/' + weather.weather[0].icon + '@2x.png'"
+            alt="Weather image">
+          <span class="status">{{weather.weather[0].main}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="container text-white py-5 advanced" v-if="typeof weather.main != 'undefined'">
+      <div v-if="typeof weather.main.feels_like !='undefined'">Feels like: {{weather.main.feels_like}}&deg;C</div>
+      <div v-else>Feels like: N/A</div>
+      <div v-if=" typeof weather.main.temp_max !='undefined'">Max temp: {{weather.main.temp_max}}&deg;C</div>
+      <div v-else>Max temp: N/A</div>
+      <div v-if=" typeof weather.main.temp_min !='undefined'">Min temp: {{weather.main.temp_min}}&deg;C</div>
+      <div v-else>Min temp: N/A</div>
+      <div v-if=" typeof weather.main.humidity !='undefined'">Humidity: {{weather.main.humidity}}%</div>
+      <div v-else>Humidity: N/A</div>
+      <div v-if=" typeof weather.main.pressure !='undefined'">Pressure: {{weather.main.pressure}} hPa</div>
+      <div v-else>Pressure: N/A</div>
+      <div v-if=" typeof weather.wind.deg !='undefined'">Wind direction: {{weather.wind.deg}}&deg;</div>
+      <div v-else>Wind direction: N/A</div>
+      <div v-if=" typeof weather.wind.gust !='undefined'">Wind gust: {{weather.wind.gust}} m/s</div>
+      <div v-else>Wind gust: N/A</div>
+      <div v-if=" typeof weather.wind.speed !='undefined'">Wind speed: {{weather.wind.speed}} m/s</div>
+      <div v-else>Wind speed: N/A</div>
+    </div>
+
+  </main>
+
+  <!-- Site footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 col-md-9">
+          <h6>About</h6>
+          <p class="text-justify"><strong>OK Weather</strong> is a simple weather app project<br>
+            API from: <a href="https://openweathermap.org/" target="_blank">OpenWeatherMap</a><br>
+            Images from: <a href="https://www.behance.net/" target="_blank">Behance</a> |
+            <a href="https://www.freepik.com/home" target="_blank">Freepik</a> |
+            <a href="https://openweathermap.org/" target="_blank">OpenWeatherMap</a><br>
+
+            Icons from: <a href="https://www.flaticon.com/" target="_blank">Flaticon</a> |
+            <a href="https://openweathermap.org/" target="_blank">OpenWeatherMap</a><br>
+            Footer template based on: <a href="https://codepen.io/scanfcode" target="_blank">Scanfcode</a><br>
+            Powered by <a href="https://vuejs.org/" target="_blank">Vue.js</a><br>
+          </p>
+        </div>
+
+        <div class="col-xs-6 col-md-3">
+          <h6>Special thanks to</h6>
+          <ul class="footer-links">
+            <li><a target="_blank" href="https://www.freepik.com/jcomp">@jcomp</a></li>
+            <li><a target="_blank" href="https://www.freepik.com/pikisuperstar">@pikisuperstar</a></li>
+            <li><a target="_blank" href="https://www.freepik.com/upklyak">@upklyak</a></li>
+            <li><a target="_blank" href="https://www.freepik.com/vectorpouch">@vectorpouch</a></li>
+            <li><a target="_blank" href="https://www.flaticon.com/authors/vitaly-gorbachev">@Vitaly Gorbachev</a></li>
+          </ul>
+        </div>
+      </div>
+      <hr>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-sm-6 col-xs-12">
+          <p class="copyright-text">NoCopyright &copy; 2021 All Rights Not Reserved by <strong>Tam Nguyen</strong>
+          </p>
+        </div>
+
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <ul class="social-icons">
+            <li><a href="https://www.facebook.com/profile.php?id=100039423129774" target="_blank"><i class="fa"><img
+                    src="./assets/facebook.svg"></i></a></li>
+            <li><a href="https://www.linkedin.com/in/nguyenmtam/" target="_blank"><i class="fa"><img
+                    src="./assets/linkedin.svg"></i></a></li>
+            <li><a href="https://github.com/tamnguyen820" target="_blank"><i class="fa"><img
+                    src="./assets/github.svg"></i></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
